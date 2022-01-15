@@ -1,0 +1,28 @@
+{
+    "type": "record",
+    "name": "MonetaryActivity",
+    "namespace": "demo.model",
+    "fields": [
+        {
+            "name" : "userId",
+            "type" : "string"
+        },
+        {
+            "name" : "transactionId",
+            "type" : "string"
+        },
+        {
+            "name" : "amount",
+            "type" : {
+                "type": "bytes",
+                "logicalType": "decimal",
+                "precision": 8,
+                "scale": 2
+            }
+        },
+        {
+            "name" : "category",
+            "type" : "string"
+        }
+    ]
+}

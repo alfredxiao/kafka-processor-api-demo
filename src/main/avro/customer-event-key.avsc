@@ -1,0 +1,15 @@
+{
+    "type": "record",
+    "name": "CustomerEventKey",
+    "namespace": "demo.model",
+    "fields": [
+        {
+            "name" : "userId",
+            "type" : "string"
+        },
+        {
+            "name" : "transactionId",
+            "type" : "string"
+        }
+    ]
+}

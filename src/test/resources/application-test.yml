@@ -1,0 +1,24 @@
+spring:
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+    properties:
+      schema.registry.url: mock://dummy
+      basic.auth.credentials.source: dummy
+      basic.auth.user.info: dummy
+      specific.avro.reader: true
+      spring.deserializer:
+        key.delegate.class: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroDeserializer
+        value.delegate.class: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroDeserializer
+    streams:
+      application-id: processor-api-demo
+      specific.avro.reader: true
+      default.key.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
+      default.value.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
+    producer:
+      key-serializer: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroSerializer
+      value-serializer: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroSerializer
+    consumer:
+      group-id: test-group
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      auto-offset-reset: earliest

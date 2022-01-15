@@ -1,0 +1,43 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.github.davidmc24.gradle.plugin.avro" version "1.0.0"
+	id 'java'
+}
+
+group = 'xiaoyf.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://packages.confluent.io/maven/" }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.apache.kafka:kafka-streams'
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+	implementation group: 'org.apache.avro', name: 'avro', version: '1.10.2'
+	implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '6.1.0'
+	implementation group: 'io.confluent', name: 'kafka-schema-serializer', version: '6.1.0'
+	implementation "io.confluent:kafka-streams-avro-serde:6.1.0"
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+test {
+	useJUnitPlatform()
+}
