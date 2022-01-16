@@ -3,9 +3,11 @@ package xiaoyf.demo.kafkaprocessorapi.utils;
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
+@Slf4j
 public class MockAvroSerializer extends KafkaAvroSerializer {
 
     public MockAvroSerializer() {
@@ -24,6 +26,7 @@ public class MockAvroSerializer extends KafkaAvroSerializer {
     // needed?
     @Override
     public byte[] serialize(String topic, Object record) {
+        log.info("MockAvroSerializer.serialize() {},  {}", topic, record);
         return super.serialize(topic, record);
     }
 }

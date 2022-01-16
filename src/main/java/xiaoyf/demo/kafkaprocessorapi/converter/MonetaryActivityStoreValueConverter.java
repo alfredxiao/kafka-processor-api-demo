@@ -1,9 +1,6 @@
 package xiaoyf.demo.kafkaprocessorapi.converter;
 
-import demo.model.MonetaryActivity;
-import demo.model.MonetaryActivityKey;
-import demo.model.MonetaryActivityStoreKey;
-import demo.model.MonetaryActivityStoreValue;
+import demo.model.*;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +13,7 @@ public class MonetaryActivityStoreValueConverter implements Converter<MonetaryAc
                 .setTransactionId(source.getTransactionId())
                 .setAmount(source.getAmount())
                 .setCategory(source.getCategory())
+                .setEventType(CustomerEventType.CREATE) // defaults to CREATE
                 .build();
     }
 }

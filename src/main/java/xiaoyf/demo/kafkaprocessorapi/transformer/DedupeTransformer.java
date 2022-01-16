@@ -36,7 +36,7 @@ public class DedupeTransformer implements Transformer<MonetaryActivityKey, Monet
 
         MonetaryActivityStoreValue oldStoreValue = store.get(storeKey);
 
-        if (Objects.nonNull(oldStoreValue)) {
+        if (Objects.isNull(oldStoreValue)) {
             // first time this event is seen
             store.put(storeKey, storeValue);
             return KeyValue.pair(storeKey, storeValue);

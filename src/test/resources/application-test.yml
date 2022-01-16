@@ -11,9 +11,10 @@ spring:
         value.delegate.class: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroDeserializer
     streams:
       application-id: processor-api-demo
-      specific.avro.reader: true
-      default.key.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
-      default.value.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
+      properties:
+        specific.avro.reader: true
+        default.key.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
+        default.value.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
     producer:
       key-serializer: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroSerializer
       value-serializer: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroSerializer
