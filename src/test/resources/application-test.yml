@@ -12,7 +12,7 @@ spring:
     streams:
       application-id: processor-api-demo
       properties:
-        specific.avro.reader: true
+        state.dir: ./build/tmp/state-dir
         default.key.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
         default.value.serde: xiaoyf.demo.kafkaprocessorapi.utils.MockSpecificAvroSerde
     producer:
@@ -20,6 +20,9 @@ spring:
       value-serializer: xiaoyf.demo.kafkaprocessorapi.utils.MockAvroSerializer
     consumer:
       group-id: test-group
+      enable.auto.commit: false
       key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       auto-offset-reset: earliest
+    listener:
+      ack-mode: MANUAL_IMMEDIATE

@@ -1,6 +1,7 @@
 package xiaoyf.demo.kafkaprocessorapi.transformer;
 
 import demo.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
@@ -15,6 +16,7 @@ import xiaoyf.demo.kafkaprocessorapi.converter.MonetaryActivityStoreValueConvert
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class DedupeTransformer implements Transformer<MonetaryActivityKey, MonetaryActivity,
         KeyValue<MonetaryActivityStoreKey, MonetaryActivityStoreValue>> {
 
@@ -38,17 +40,21 @@ public class DedupeTransformer implements Transformer<MonetaryActivityKey, Monet
 
         if (Objects.isNull(oldStoreValue)) {
             // first time this event is seen
+            log.info("storing event first seen into store: {}", storeKey);
             store.put(storeKey, storeValue);
+            log.info("storing event first seen into store: DONE");
             return KeyValue.pair(storeKey, storeValue);
         }
 
         var oldValue = maConverter.convert(oldStoreValue);
         if (oldValue.equals(value)) {
             // same value as previous seen, ignore this event
+            log.info("old value same as incoming value, ignore {}", storeKey);
             return null;
         }
 
         // event with diff value than previous one, so it is an UPDATE
+        log.info("same key seen before but value is new in incoming value: {}", storeKey);
         storeValue.setEventType(CustomerEventType.UPDATE);
         store.put(storeKey, storeValue);
         return KeyValue.pair(storeKey, storeValue);
